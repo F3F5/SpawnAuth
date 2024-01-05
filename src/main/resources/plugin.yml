@@ -1,6 +1,0 @@
-name: SpawnAuth
-version: 1.1.0
-main: f3f5.spawnauth.SpawnAuth
-api-version: 1.13
-authors: [ F3F5 ]
-softdepend: [ AuthMe ]
