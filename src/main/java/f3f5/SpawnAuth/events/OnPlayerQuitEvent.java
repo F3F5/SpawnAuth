@@ -21,6 +21,7 @@ public class OnPlayerQuitEvent implements Listener {
         Player player = event.getPlayer();
 
         if (player.isInsideVehicle()) player.leaveVehicle();
+        player.setGravity(false);
         if (!gameHelper.authMeApi.isAuthenticated(player)) player.teleport(saveHelper.getLocation(player.getName()));
     }
 }

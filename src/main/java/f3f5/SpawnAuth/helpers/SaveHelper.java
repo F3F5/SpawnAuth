@@ -2,6 +2,7 @@ package f3f5.SpawnAuth.helpers;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
 
 import java.io.File;
 import java.sql.SQLException;
@@ -61,6 +62,24 @@ public class SaveHelper {
         } catch (SQLException ignored) {
         }
         return null;
+    }
+    public void handleDisable() {
+        try (Connection connection = DriverManager.getConnection(dataBaseURL)) {
+            try (PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM PlayerLocations")) {
+                ResultSet result = preparedStatement.executeQuery();
+                while (result.next()) {
+                    try {
+                        Location location = getLocation(result.getString("name"));
+                        Player player = Bukkit.getPlayer(result.getString("name"));
+
+                        player.teleport(location);
+                        player.setGravity(true);
+                        removeLocation(player.getName());
+                    } catch (Exception ignored) {}
+                }
+            }
+        } catch (SQLException ignored) {
+        }
     }
 
 }

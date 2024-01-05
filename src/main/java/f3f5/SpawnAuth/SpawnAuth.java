@@ -38,4 +38,9 @@ public final class SpawnAuth extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new OnPlayerLogoutEvent(saveHelper), this);
         getServer().getPluginManager().registerEvents(new OnPlayerUnregisterEvent(saveHelper), this);
     }
+
+    @Override
+    public void onDisable(){
+        saveHelper.handleDisable();
+    }
 }
