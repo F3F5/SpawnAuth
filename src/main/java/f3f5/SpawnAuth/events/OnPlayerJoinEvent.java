@@ -36,7 +36,7 @@ public class OnPlayerJoinEvent implements Listener {
         saveHelper.saveLocation(player.getName(), player.getLocation());
         getScheduler().scheduleSyncDelayedTask(SpawnAuth.getPlugin(SpawnAuth.class), () -> {
             player.setGravity(false);
-            player.teleport(new Location(player.getWorld(), 0, 10000, 0));
+            player.teleport(new Location(Bukkit.getWorld("world"), 0, 10000, 0));
         }, 2);
     }
 }
