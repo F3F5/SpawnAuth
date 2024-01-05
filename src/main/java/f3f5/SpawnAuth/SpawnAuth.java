@@ -1,7 +1,5 @@
 package f3f5.SpawnAuth;
 
-import F3f25.SpawnAuth.events.*;
-import F3f5.SpawnAuth.events.*;
 import f3f5.SpawnAuth.events.*;
 import fr.xephi.authme.api.v3.AuthMeApi;
 import org.bukkit.plugin.java.JavaPlugin;
