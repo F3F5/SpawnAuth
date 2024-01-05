@@ -30,10 +30,11 @@ public final class SpawnAuth extends JavaPlugin {
 
         // Setup data base
         saveHelper.setupDataBase();
+        gameHelper.setSaveHelper(saveHelper);
 
         // Register events
         getServer().getPluginManager().registerEvents(new OnPlayerJoinEvent(gameHelper, saveHelper), this);
-        getServer().getPluginManager().registerEvents(new OnPlayerLoginEvent(saveHelper), this);
+        getServer().getPluginManager().registerEvents(new OnPlayerLoginEvent(gameHelper, saveHelper), this);
         getServer().getPluginManager().registerEvents(new OnPlayerQuitEvent(gameHelper, saveHelper), this);
         getServer().getPluginManager().registerEvents(new OnPlayerLogoutEvent(saveHelper), this);
         getServer().getPluginManager().registerEvents(new OnPlayerUnregisterEvent(saveHelper), this);
@@ -41,6 +42,6 @@ public final class SpawnAuth extends JavaPlugin {
 
     @Override
     public void onDisable(){
-        saveHelper.handleDisable();
+        saveHelper.handleDisable(gameHelper);
     }
 }

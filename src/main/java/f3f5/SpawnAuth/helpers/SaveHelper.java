@@ -17,7 +17,7 @@ public class SaveHelper {
 
     public void setupDataBase() {
         try (Connection connection = DriverManager.getConnection(dataBaseURL)) {
-            try (PreparedStatement preparedStatement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS PlayerLocations (name TEXT NOT NULL, x INTEGER NOT NULL, y INTEGER NOT NULL, z INTEGER NOT NULL, world TEXT NOT NULL)")) {
+            try (PreparedStatement preparedStatement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS PlayerLocations (name TEXT NOT NULL, x TEXT NOT NULL, y TEXT NOT NULL, z TEXT NOT NULL, world TEXT NOT NULL)")) {
                 preparedStatement.executeUpdate();
             }
         } catch (SQLException ignored) {
@@ -31,9 +31,9 @@ public class SaveHelper {
                 preparedStatement.setString(1, name);
                 preparedStatement.setString(5, location.getWorld().getName());
 
-                preparedStatement.setInt(2, (int) location.getX());
-                preparedStatement.setInt(3, (int) location.getY());
-                preparedStatement.setInt(4, (int) location.getZ());
+                preparedStatement.setString(2, String.valueOf(location.getX()));
+                preparedStatement.setString(3, String.valueOf(location.getY()));
+                preparedStatement.setString(4, String.valueOf(location.getZ()));
                 preparedStatement.executeUpdate();
             }
         } catch (SQLException ignored) {
@@ -56,14 +56,14 @@ public class SaveHelper {
                 preparedStatement.setString(1, name);
                 ResultSet result = preparedStatement.executeQuery();
                 if (result.next()) {
-                    return new Location(Bukkit.getWorld(result.getString("world")), result.getInt("x"), result.getInt("y"), result.getInt("z"));
+                    return new Location(Bukkit.getWorld(result.getString("world")), Double.parseDouble(result.getString("x")), Double.parseDouble(result.getString("y")), Double.parseDouble(result.getString("z")));
                 }
             }
         } catch (SQLException ignored) {
         }
         return null;
     }
-    public void handleDisable() {
+    public void handleDisable(GameHelper gameHelper) {
         try (Connection connection = DriverManager.getConnection(dataBaseURL)) {
             try (PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM PlayerLocations")) {
                 ResultSet result = preparedStatement.executeQuery();
@@ -72,7 +72,7 @@ public class SaveHelper {
                         Location location = getLocation(result.getString("name"));
                         Player player = Bukkit.getPlayer(result.getString("name"));
 
-                        player.teleport(location);
+                        gameHelper.teleport(player, location);
                         player.setGravity(true);
                         removeLocation(player.getName());
                     } catch (Exception ignored) {}

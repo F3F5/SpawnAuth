@@ -28,15 +28,15 @@ public class OnPlayerJoinEvent implements Listener {
         if (player.isDead()) {
             player.spigot().respawn();
             if (player.getBedSpawnLocation() != null) {
-                player.teleport(new Location(player.getBedSpawnLocation().getWorld(), player.getBedSpawnLocation().getX(), player.getBedSpawnLocation().getY() + 1.5, player.getBedSpawnLocation().getZ()));
+                gameHelper.teleport(player, new Location(player.getBedSpawnLocation().getWorld(), player.getBedSpawnLocation().getX(), player.getBedSpawnLocation().getY() + 1.5, player.getBedSpawnLocation().getZ()));
             } else {
-                player.teleport(gameHelper.getSpawnLocation(Bukkit.getWorld("world")));
+                gameHelper.teleport(player, gameHelper.getSpawnLocation(Bukkit.getWorld("world")));
             }
         }
         saveHelper.saveLocation(player.getName(), player.getLocation());
         getScheduler().scheduleSyncDelayedTask(SpawnAuth.getPlugin(SpawnAuth.class), () -> {
             player.setGravity(false);
-            player.teleport(new Location(Bukkit.getWorld("world"), 0, 10000, 0));
+            gameHelper.teleport(player, new Location(Bukkit.getWorld("world"), 0, 10000, 0));
         }, 2);
     }
 }
