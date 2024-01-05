@@ -28,7 +28,7 @@ public class OnPlayerJoinEvent implements Listener {
         if (player.isDead()) {
             player.spigot().respawn();
             if (player.getBedSpawnLocation() != null) {
-                gameHelper.teleport(player, new Location(player.getBedSpawnLocation().getWorld(), player.getBedSpawnLocation().getX(), player.getBedSpawnLocation().getY() + 1.5, player.getBedSpawnLocation().getZ()));
+                player.teleport(new Location(player.getBedSpawnLocation().getWorld(), player.getBedSpawnLocation().getX(), player.getBedSpawnLocation().getY() + 1.5, player.getBedSpawnLocation().getZ()));
             } else {
                 gameHelper.teleport(player, gameHelper.getSpawnLocation(Bukkit.getWorld("world")));
             }
