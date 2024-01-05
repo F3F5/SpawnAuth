@@ -1,6 +1,5 @@
 package f3f5.SpawnAuth.events;
 
-import f3f5.SpawnAuth.SpawnAuth;
 import f3f5.SpawnAuth.helpers.GameHelper;
 import f3f5.SpawnAuth.helpers.SaveHelper;
 import org.bukkit.Bukkit;
@@ -9,8 +8,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-
-import static org.bukkit.Bukkit.getScheduler;
 
 public class OnPlayerJoinEvent implements Listener {
     private final GameHelper gameHelper;
@@ -34,9 +31,7 @@ public class OnPlayerJoinEvent implements Listener {
             }
         }
         saveHelper.saveLocation(player.getName(), player.getLocation());
-        getScheduler().scheduleSyncDelayedTask(SpawnAuth.getPlugin(SpawnAuth.class), () -> {
-            player.setGravity(false);
-            gameHelper.teleport(player, new Location(Bukkit.getWorld("world"), 0, 10000, 0));
-        }, 2);
+        player.setGravity(false);
+        gameHelper.teleport(player, new Location(Bukkit.getWorld("world"), 0, 10000, 0));
     }
 }
