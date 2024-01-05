@@ -1,0 +1,6 @@
+name: SpawnAuth
+version: '${project.version}'
+main: wtf.waenara.SpawnAuth.SpawnAuth
+api-version: 1.13
+authors: [ Waenara ]
+softdepend: [ AuthMe ]
