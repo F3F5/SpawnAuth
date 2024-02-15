@@ -1,0 +1,6 @@
+name: SpawnAuth
+version: '${project.version}'
+main: me.miko.spawnauth.SpawnAuth
+api-version: 1.13
+authors: [ MIKO, Waenara ]
+softdepend: [ AuthMe ]
